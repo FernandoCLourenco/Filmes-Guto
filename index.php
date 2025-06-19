@@ -7,96 +7,72 @@ include "banner.php";
 
     <div class="row mb-5">
         <?php
-        $servidor = 'localhost';
-        $bd = 'bd_filmes';
-        $usuario = 'root';
-        $senha = '';
-        $conexao = mysqli_connect($servidor, $usuario, $senha, $bd);
-        
-        if(!$conexao){
-            die("deu ruim". mysqli_connect_errno());
-        }
-        echo "deu bom"
-        ?>
-        <div class="col-3">
-            <img src="img/filme1.webp" class="img-fluid">
-            <h3>Jurassic Park</h3>
-            <span>⭐ 10/10</span>
-        </div>
+        /* inicio da conexão com o BD */
        
-    </div>
-    <div class="row mt-5">
-    <div class="row align-items-center">
-        <div class="col-8">
-            <img src="img/banner.jpg" class="img-fluid">
-        </div>
-        <div class="col-4">
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus obcaecati cupiditate nisi laborum enim? Laboriosam, suscipit quas sequi molestiae id sunt totam fugiat, consequatur, unde excepturi labore accusantium odio velit?
-            </p>
-        <a href="https://youtube.com" class="btn btn-success btn-lg">ASSISTA AO TRAILER AGORA</a>
-        </div>
-        </div>
-        <div class="row align-items-center">
-        <div class="col-4">
-        <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus obcaecati cupiditate nisi laborum enim? Laboriosam, suscipit quas sequi molestiae id sunt totam fugiat, consequatur, unde excepturi labore accusantium odio velit?
-            </p>
-        <a href="https://youtube.com" class="btn btn-success btn-lg">ASSISTA AO TRAILER AGORA</a>
-        </div>
-        <div class="col-8">
-        <img src="img/banner.jpg" class="img-fluid">
-        </div>
-        </div>
+        include "conexao.php";
+        /* fim da conexao */
+
+        $sql = "select * from filmes order by avaliacao desc limit 4";
+        $resultado = mysqli_query($conexao, $sql);
+
+        // echo "<pre>";
+        // print_r($resultado);
+        // exit();
+        while($linha = mysqli_fetch_assoc($resultado)){
+            ?>
+            <div class="col-3">
+                <img src="<?=$linha['foto']?>" class="img-fluid capa-filme">
+                <h3><?php echo mb_strimwidth($linha['titulo'], 0, 20, "...");?></h3>
+                <span>⭐ <?=$linha['avaliacao']?>/10</span>
+            </div>
+        <?php
+        }
+        mysqli_close($conexao)
+        ?>
         
-        <button type="button" class="btn btn-warning btn-lg mt-5 fs-5 fw-bold text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Precisa de Ajuda?Clique Aqui!
-        </button>
-
-        <button type="button" class="btn btn-warning btn-lg mt-5 fs-5 fw-bold text-primary" data-bs-toggle="modal" data-bs-target="#meumodal">
-            Precisa de Ajuda?Clique Aqui!
-        </button>
-
-
- <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <p>Entre em contato através dos nossos canais de comunicação</p>
-      <p>E-mail : filme@filme.com.br <br> Whatsapp: (11)99999-9999 <br><a href="contato.php">Formulário de Contraro</a>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
     </div>
-  </div>
-</div>
 
-<div class="modal fade" id="meumodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <p>Entre em contato através dos nossos canais de comunicação</p>
-      <p>E-mail : filme@filme.com.br <br> Whatsapp: (11)99999-9999 <br><a href="contato.php">Formulário de Contraro</a>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+    <div class="row mt-5">
+        <div class="col-6">
+            <img src="img/thunderbolts.webp" class="img-fluid">
+        </div>
+        <div class="col-6 align-content-center">
+            <p class="fs-5 fw-light">Presos em uma armadilha mortal, uma equipe nada convencional de anti-heróis embarca em uma missão perigosa que os força a confrontar os cantos mais sombrios de suas vidas.</p>
+            <a href="https://www.youtube.com/watch?v=MaLy0D2FTDc" class="btn btn-success btn-lg">ASSISTA AO TRAILER AGORA</a>
+        </div>
     </div>
-  </div>
-</div>
+    <div class="row">
+        <div class="col-6 align-content-center">
+            <p class="fs-5 fw-light">Superman embarca em uma jornada para reconciliar sua herança kryptoniana com sua criação humana.</p>
+            <a href="https://www.youtube.com/watch?v=6HsfXtgcAE4" class="btn btn-success">ASSISTA AO TRAILER AGORA </a>
+        </div>
+        <div class="col-6">
+            <img src="img/superman.jpg" class="img-fluid">
+        </div>
+    </div>
 
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-warning btn-lg mt-5 fs-5 fw-bold text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Precisa de ajuda? Clique aqui!
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ajuda 🧠</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Entre em contato através dos nossos canais de comunicação:</p>
+                    <p>E-mail: filme@filme.com.br <br> Whatsapp: (11)99999-9999 <br><a href="contato.php">Formulário de contato</a> </p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    
+
 </div>
 <?php include "rodape.php"; ?>

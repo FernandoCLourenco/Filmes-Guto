@@ -148,8 +148,7 @@ button:hover {
     }
 }
 
-/*.container{
-
+/* .container{
     width: 900px;
     margin: 0 auto;
     display: flex;
@@ -168,5 +167,8 @@ button:hover {
 
 .container p{
     margin: 0 50px;
+} */
+
+.capa-filme{
+    height: 400px;
 }
-    */
